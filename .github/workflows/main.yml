@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: myworkspace
-          path: .
+          path: ./env
   tests:
     runs-on: ubuntu-latest
     needs: build
