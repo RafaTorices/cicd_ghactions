@@ -71,10 +71,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v3
-      # Configures Python version
-      - name: Docker build and push
-        run: |
-          docker build --tag rafacv99/pycalculator_flask:latest .
-          docker images
-          echo "${DOCKERHUB_TOKEN}" | docker login -u rafacv99 --password-stdin
-          docker push rafacv99/pycalculator_flask:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: |
+            rafacv99/your-repo-name:latest
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
