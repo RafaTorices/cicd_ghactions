@@ -19,6 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -29,6 +30,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.8"
+          # Create a cache for pip
           cache: "pip"
       # Install dependencies
       - name: Install dependencies
