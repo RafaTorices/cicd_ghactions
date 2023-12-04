@@ -74,7 +74,7 @@ jobs:
       # Configures Python version
       - name: Docker build and push
         run: |
-          docker build --tag "${IMAGE_TAG}" .
+          docker build --tag rafacv99/pycalculator_flask:latest .
           docker images
           echo "${DOCKERHUB_PASS}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
-          docker push "${IMAGE_TAG}"
+          docker push rafacv99/pycalculator_flask:latest
