@@ -79,6 +79,6 @@ jobs:
           context: .
           push: true
           tags: |
-            rafacv99/your-repo-name:latest
+            rafacv99/pycalculator_flask:latest
         env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
