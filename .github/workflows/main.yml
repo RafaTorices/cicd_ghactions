@@ -33,16 +33,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       # Run lint pylint
-      - name: Run Lint Flake8
+      - name: Run Lint Pylint
         run: |
           pylint src/calculator.py
       # Run tests pytest
       - name: Run tests
         run: |
           python3 -m pytest --cov=src --cov-report=xml:docs-covtests-reports/coverage.xml
+          coverage run -m pytest tests/test_calculator.py
           coverage html -d ./docs-covtests-reports
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
-          name: test-results
+          name: docs-covtests-reports
           path: ./docs-covtests-reports
+      # Run docs pdoc
+      - name: Run docs
+        run: |
+          pdoc src/calculator.py -o ./docs-html
+      - name: Upload docs
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-html
+          path: ./docs-html
