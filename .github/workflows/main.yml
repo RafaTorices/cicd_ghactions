@@ -32,20 +32,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      # Run lint check
+      # Run lint pylint
       - name: Run Lint Flake8
         run: |
-          pip install flake8
-          pip install pylint
-          flake8 src/calculator.py
           pylint src/calculator.py
-      # Run tests
+      # Run tests pytest
       - name: Run tests
         run: |
-          pip install pytest pytest-cov  
-          pytest tests/test_calculator.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-      - name: Upload pytest test results
+          python3 -m pytest --cov=src --cov-report=xml:docs-covtests-reports/coverage.xml
+          coverage html -d ./docs-covtests-reports
+      - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
-          name: pytest-results-${{ matrix.python-version }}
-          path: junit/test-results-${{ matrix.python-version }}.xml
+          name: test-results
+          path: ./docs-covtests-reports
