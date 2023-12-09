@@ -64,12 +64,17 @@ jobs:
         with:
           name: docs-html
           path: ./docs-html
+      # Sonarcloud Scan
       - name: Sonarcloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+      - name: GitGuardian Scan
+        uses: gitguardian/scan-action@master
+        with:
+          # The path to the directory to scan
+          path: src
   # Deploy the app to DockerHub
   deploy:
     # The type of runner that the job will run on
