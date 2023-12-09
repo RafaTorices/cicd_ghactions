@@ -64,6 +64,12 @@ jobs:
         with:
           name: docs-html
           path: ./docs-html
+      - name: Sonarcloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: src
+        env:
+          SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
   # Deploy the app to DockerHub
   deploy:
